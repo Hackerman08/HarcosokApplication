@@ -40,6 +40,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -93,6 +94,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.textBox3);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.textBox2);
@@ -101,7 +103,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(20, 157);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(258, 181);
+            this.groupBox2.Size = new System.Drawing.Size(314, 181);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Képesség hózzáadása";
@@ -157,6 +159,15 @@
             this.textBox3.Size = new System.Drawing.Size(150, 50);
             this.textBox3.TabIndex = 5;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(224, 152);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Hozzáad";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // HarcosokApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -167,6 +178,7 @@
             this.Controls.Add(this.label1);
             this.Name = "HarcosokApplication";
             this.Text = "HarcosokApplication";
+            this.Click += new System.EventHandler(this.button2_Click);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -189,6 +201,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button2;
     }
 }
 

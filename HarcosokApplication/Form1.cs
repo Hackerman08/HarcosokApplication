@@ -89,5 +89,33 @@ namespace HarcosokApplication
                 conn.Close();
             }
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            string nev = textBox2.Text;
+            string leiras = textBox3.Text;
+            string harcos_id = comboBox1.Text;
+
+            using (var conn = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;"))
+            {
+                conn.Open();
+                var command = conn.CreateCommand();
+                command.CommandText = "UPDATE felhasznalo SET`id`=@databesa,`nev`=@nev,`leiras`=@leiras,`harcos_id`=@harcos_id  WHERE id=@databesa";
+                command.Parameters.AddWithValue("@nev", nev);
+                command.Parameters.AddWithValue("@jelszo", leiras);
+                command.Parameters.AddWithValue("@regdatum", harcos_id);
+                command.Parameters.AddWithValue("@databesa", databesa);
+                int erintettSorok = command.ExecuteNonQuery();
+                MessageBox.Show("Módósítva!!!!");
+                displayData();
+                conn.Close();
+                
+            }
+
+
+
+
+
+        }
     }
 }
