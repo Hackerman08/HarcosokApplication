@@ -19,12 +19,14 @@ namespace HarcosokApplication
         MySqlDataAdapter adpt;
         DataTable dt;
 
-        MySqlConnection con = new MySqlConnection("Server = localhost; Database = regisztracio; Uid = root; Pwd = ;");
+        MySqlConnection con = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;");
         public HarcosokApplication()
         {
             InitializeComponent();
             displayData();
-
+            displayData2();
+            displayData3();
+            displayData4();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,6 +58,8 @@ namespace HarcosokApplication
                 int erintettSorok = command.ExecuteNonQuery();
                 MessageBox.Show("Felvéve!!!!");
                 displayData();
+                displayData2();
+                
                 conn.Close();
                 
 
@@ -89,25 +93,35 @@ namespace HarcosokApplication
                 conn.Close();
             }
         }
+        
+
+       
         private void button2_Click(object sender, EventArgs e)
         {
 
+            int selectedIndex = comboBox1.SelectedIndex;
+            Object selectedItem = comboBox1.SelectedItem;
             string nev = textBox2.Text;
             string leiras = textBox3.Text;
-            string harcos_id = comboBox1.Text;
+            int harcos_id= selectedIndex+1;
 
+           
             using (var conn = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;"))
             {
                 conn.Open();
                 var command = conn.CreateCommand();
-                command.CommandText = "UPDATE felhasznalo SET`id`=@databesa,`nev`=@nev,`leiras`=@leiras,`harcos_id`=@harcos_id  WHERE id=@databesa";
+                command.CommandText = "INSERT INTO `kepessegek`( `nev`, `leiras`, `harcos_id`) VALUES (@nev,@leiras,@harcos_id)";
                 command.Parameters.AddWithValue("@nev", nev);
-                command.Parameters.AddWithValue("@jelszo", leiras);
-                command.Parameters.AddWithValue("@regdatum", harcos_id);
-                command.Parameters.AddWithValue("@databesa", databesa);
+                
+                command.Parameters.AddWithValue("@leiras", leiras);
+                command.Parameters.AddWithValue("@harcos_id", harcos_id);
+
+               
+               
+
                 int erintettSorok = command.ExecuteNonQuery();
-                MessageBox.Show("Módósítva!!!!");
-                displayData();
+                MessageBox.Show("Felvéve!!!!!!!!");
+                displayData3();
                 conn.Close();
                 
             }
@@ -117,5 +131,55 @@ namespace HarcosokApplication
 
 
         }
+       
+        public void displayData2()
+        {
+            con.Open();
+            adpt = new MySqlDataAdapter("select nev,letrehozas from harcosok", con);
+            dt = new DataTable();
+            adpt.Fill(dt);
+            dataGridView1.DataSource = dt;
+            con.Close();
+        }
+
+        
+        public void displayData3()
+        {
+            con.Open();
+            adpt = new MySqlDataAdapter("select nev from kepessegek", con);
+            dt = new DataTable();
+            adpt.Fill(dt);
+            dataGridView2.DataSource = dt;
+            con.Close();
+        }
+        public void displayData4()
+        {
+            con.Open();
+            adpt = new MySqlDataAdapter("select leiras from kepessegek", con);
+            dt = new DataTable();
+            adpt.Fill(dt);
+            dataGridView3.DataSource = dt;
+            con.Close();
+        }
+       
+        private void Törlés_Click(object sender, EventArgs e)
+        {
+            using (var conn = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;"))
+            {
+                conn.Open();
+                var command = conn.CreateCommand();
+                command.CommandText = "DELETE FROM `kepessegek` WHERE id=@databesa";
+
+                command.Parameters.AddWithValue("@databesa", databesa);
+                int erintettSorok = command.ExecuteNonQuery();
+                MessageBox.Show("Törölve!!!!");
+                displayData3();
+                conn.Close();
+                
+
+            }
+        }
+      
+        
     }
 }
