@@ -42,20 +42,17 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.Törlés = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.Törlés = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -184,11 +181,11 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.listBox3);
+            this.groupBox3.Controls.Add(this.listBox2);
+            this.groupBox3.Controls.Add(this.listBox1);
             this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.Törlés);
-            this.groupBox3.Controls.Add(this.dataGridView3);
-            this.groupBox3.Controls.Add(this.dataGridView2);
-            this.groupBox3.Controls.Add(this.dataGridView1);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label6);
@@ -199,14 +196,53 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Összegzés:";
             // 
-            // dataGridView1
+            // listBox3
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(30, 59);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(221, 244);
-            this.dataGridView1.TabIndex = 6;
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.ItemHeight = 16;
+            this.listBox3.Location = new System.Drawing.Point(451, 69);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(225, 244);
+            this.listBox3.TabIndex = 13;
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 16;
+            this.listBox2.Location = new System.Drawing.Point(282, 69);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(121, 244);
+            this.listBox2.TabIndex = 12;
+            this.listBox2.SelectedValueChanged += new System.EventHandler(this.listBox2_SelectedValueChanged);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(38, 69);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(190, 276);
+            this.listBox1.TabIndex = 11;
+            this.listBox1.SelectedValueChanged += new System.EventHandler(this.displayData3);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(426, 322);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 10;
+            this.button3.Text = "Módósítás";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // Törlés
+            // 
+            this.Törlés.Location = new System.Drawing.Point(257, 322);
+            this.Törlés.Name = "Törlés";
+            this.Törlés.Size = new System.Drawing.Size(75, 23);
+            this.Törlés.TabIndex = 9;
+            this.Törlés.Text = "Törlés";
+            this.Törlés.UseVisualStyleBackColor = true;
+            this.Törlés.Click += new System.EventHandler(this.Törlés_Click);
             // 
             // label8
             // 
@@ -235,44 +271,6 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "Harcosok:";
             // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(257, 59);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(163, 243);
-            this.dataGridView2.TabIndex = 7;
-            
-            // 
-            // dataGridView3
-            // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(426, 59);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(268, 243);
-            this.dataGridView3.TabIndex = 8;
-            // 
-            // Törlés
-            // 
-            this.Törlés.Location = new System.Drawing.Point(257, 322);
-            this.Törlés.Name = "Törlés";
-            this.Törlés.Size = new System.Drawing.Size(75, 23);
-            this.Törlés.TabIndex = 9;
-            this.Törlés.Text = "Törlés";
-            this.Törlés.UseVisualStyleBackColor = true;
-            this.Törlés.Click += new System.EventHandler(this.Törlés_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(426, 322);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Módósítás";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // HarcosokApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -291,9 +289,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,11 +312,11 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button Törlés;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

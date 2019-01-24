@@ -25,8 +25,8 @@ namespace HarcosokApplication
             InitializeComponent();
             displayData();
             displayData2();
-            displayData3();
-            displayData4();
+            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,7 +59,7 @@ namespace HarcosokApplication
                 MessageBox.Show("Felvéve!!!!");
                 displayData();
                 displayData2();
-                
+                textBox1.Clear();
                 conn.Close();
                 
 
@@ -109,6 +109,7 @@ namespace HarcosokApplication
             using (var conn = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;"))
             {
                 conn.Open();
+                
                 var command = conn.CreateCommand();
                 command.CommandText = "INSERT INTO `kepessegek`( `nev`, `leiras`, `harcos_id`) VALUES (@nev,@leiras,@harcos_id)";
                 command.Parameters.AddWithValue("@nev", nev);
@@ -121,7 +122,9 @@ namespace HarcosokApplication
 
                 int erintettSorok = command.ExecuteNonQuery();
                 MessageBox.Show("Felvéve!!!!!!!!");
-                displayData3();
+                displayData2();
+                textBox2.Clear();
+                textBox3.Clear();
                 conn.Close();
                 
             }
@@ -134,52 +137,116 @@ namespace HarcosokApplication
        
         public void displayData2()
         {
-            con.Open();
-            adpt = new MySqlDataAdapter("select nev,letrehozas from harcosok", con);
-            dt = new DataTable();
-            adpt.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
-        }
-
-        
-        public void displayData3()
-        {
-            con.Open();
-            adpt = new MySqlDataAdapter("select nev from kepessegek", con);
-            dt = new DataTable();
-            adpt.Fill(dt);
-            dataGridView2.DataSource = dt;
-            con.Close();
-        }
-        public void displayData4()
-        {
-            con.Open();
-            adpt = new MySqlDataAdapter("select leiras from kepessegek", con);
-            dt = new DataTable();
-            adpt.Fill(dt);
-            dataGridView3.DataSource = dt;
-            con.Close();
-        }
-       
-        private void Törlés_Click(object sender, EventArgs e)
-        {
             using (var conn = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;"))
             {
                 conn.Open();
                 var command = conn.CreateCommand();
-                command.CommandText = "DELETE FROM `kepessegek` WHERE id=@databesa";
+                command.CommandText = "select nev from harcosok";
 
-                command.Parameters.AddWithValue("@databesa", databesa);
-                int erintettSorok = command.ExecuteNonQuery();
-                MessageBox.Show("Törölve!!!!");
-                displayData3();
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+                    listBox1.Items.Clear();
+                    while (reader.Read())
+                    {
+
+                        listBox1.Items.Add(reader["nev"]);
+                    }
+                    con.Close();
+
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
                 conn.Close();
+            }
+        }
+
+        
+
+        private void displayData3(object sender, EventArgs e)
+        {
+            using (var conn = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;"))
+            {
+                conn.Open();
+                int selectedIndex = listBox1.SelectedIndex;
+                Object selectedItem = listBox1.SelectedItem;
+                int id = selectedIndex + 1;
+                var command = conn.CreateCommand();
+                command.CommandText = "SELECT `nev` from kepessegek WHERE harcos_id=@id";
+                command.Parameters.AddWithValue("@id", id);
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+                    listBox2.Items.Clear();
+                    
+                    while (reader.Read())
+                    {
+                        
+                        listBox2.Items.Add(reader["nev"]);
+                    }
+                    con.Close();
+
+                }
+                catch (Exception b)
+                {
+                    MessageBox.Show(b.Message);
+                }
+                conn.Close();
+               
+            }
+        }
+
+        private void listBox2_SelectedValueChanged(object sender, EventArgs e)
+        {
+            using (var conn = new MySqlConnection("Server = localhost; Database = cs_harcosok; Uid = root; Pwd = ;"))
+            {
+                conn.Open();
                 
+                int selectedIndex = listBox2.SelectedIndex;
+                Object selectedItem = listBox2.SelectedItem;
+                int id2 = selectedIndex + 1;
+                var command = conn.CreateCommand();
+                command.CommandText = "SELECT `leiras` from kepessegek WHERE id=@id2";
+                command.Parameters.AddWithValue("@id2", id2);
+                try
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+                    
+                    listBox3.Items.Clear();
+                    while (reader.Read())
+                    {
+                        listBox3.Items.Add(reader["leiras"]);
+
+                    }
+                    con.Close();
+
+                }
+                catch (Exception c)
+                {
+                    MessageBox.Show(c.Message);
+                }
+                conn.Close();
 
             }
         }
-      
-        
+
+        private void Törlés_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+
+
+                var kepesseg_torles = con.CreateCommand();
+                kepesseg_torles.CommandText = @"DELETE FROM kepessegek WHERE id=@id;";
+               
+                kepesseg_torles.ExecuteNonQuery();
+
+                listBox1.Text = "Nincs kiválasztott képesség";
+                MessageBox.Show("Sikeres törlés!");
+            }
+            else { MessageBox.Show("Nincs kiválasztva képesség"); }
+        }
     }
 }
